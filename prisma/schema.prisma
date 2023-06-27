@@ -39,7 +39,7 @@ model Preference {
   show_language      Boolean
 
   // Relate to user
-  userId      Int
+  userId      Int    @unique
   user        User      @relation(fields: [userId], references: [id])
 
   @@map("preferences")
