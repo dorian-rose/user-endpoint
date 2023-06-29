@@ -4,7 +4,7 @@ import { PreferencesService } from './preferences.service';
 import { GetUser } from './decorator';
 import { CreatePreferencesDto } from './dto';
 
-@UseGuards(JwtGuard)
+@UseGuards(JwtGuard) //protect with token
 @Controller('user')
 export class PreferencesController {
   constructor(private preferencesService: PreferencesService) {}
