@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePreferencesDto } from './dto';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 @Injectable()
 export class PreferencesService {
@@ -21,7 +22,9 @@ export class PreferencesService {
 
       return preferences;
     } catch (error) {
-      //if (error instanceof PrismaClientKnownRequestError) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        console.log('pclient known error');
+      }
       if (error.code === 'P2002') {
         throw new ForbiddenException(
           'User has already set preferences. Please update instead',
