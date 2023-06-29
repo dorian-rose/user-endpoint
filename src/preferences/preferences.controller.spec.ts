@@ -72,9 +72,11 @@ describe('PreferencesController', () => {
         .spyOn(service, 'createPreferences')
         //mock recjection, simulation of error when ducplicate exists
         .mockRejectedValue(
-          new ForbiddenException('User has already set preferences'),
+          new ForbiddenException(
+            'User has already set preferences. Please update instead',
+          ),
         );
-
+      //check that the controller receives the rejection from services
       await expect(controller.createPreferences(dto)).rejects.toThrow(
         ForbiddenException,
       );
