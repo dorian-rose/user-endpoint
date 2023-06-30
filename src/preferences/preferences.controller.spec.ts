@@ -24,7 +24,7 @@ describe('PreferencesController', () => {
   //in case of success
   describe('createPreferences', () => {
     it('should create preferences', async () => {
-      //define dto
+      //define dto that cont should send to service
       const dto: CreatePreferencesDto = {
         tac_accepted: true,
         language: 'English',
@@ -53,9 +53,10 @@ describe('PreferencesController', () => {
       //mock result when method called with above dto
       const result = await controller.createPreferences(dto);
 
-      expect(result).toBe(expectedResult);
-      //expect to have been called, services
+      //check that controllers is calling services
       expect(service.createPreferences).toHaveBeenCalledWith(dto);
+      //check that the expected result is received
+      expect(result).toBe(expectedResult);
     });
 
     //in case of error due to duplication
@@ -76,7 +77,7 @@ describe('PreferencesController', () => {
             'User has already set preferences. Please update instead',
           ),
         );
-      //check that the controller receives the rejection from services
+      //check that the controller receives the rejection from services and implementes it
       await expect(controller.createPreferences(dto)).rejects.toThrow(
         ForbiddenException,
       );

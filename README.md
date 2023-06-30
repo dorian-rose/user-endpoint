@@ -1,4 +1,4 @@
-Getting Started Guide XXX
+# Getting started
 
 ## Installation
 
@@ -22,26 +22,38 @@ $ npm run start:prod
 ## Test
 
 ```bash
-# unit tests
+# unit tests (jest)
 $ npm run test
 
 
-# Configuration (environment variables)
+# api tests (guerkin/cucumber/pactum)
+$ npm run cucumber
+```
 
+## Configuration
+
+```bash
 Environment variables must be configured in project setup. Required variables can be found in file .env.template.
+```
 
-# Dependencies
+## Dependencies
 
+```bash
 Using different versions of dependencies may cause conflicts. Dependencies, development dependencies and the versions used here can be found in file package.json.
+```
 
-Project Overview XXXX
+# Project Overview
 
-# Objective
+## Objective
+
+```bash
 
 "As a User, I want to be able to save my user profile setting via API so that I can easily control my preferences via API in the future"
+```
 
-# Functionality (API endpoint)
+## Functionality (API endpoint)
 
+```bash
 According to the above business need, an endpoint (POST Api) has been developed to save the following user preferences:
 
 - Terms and Conditions accepted (true/false)
@@ -49,40 +61,31 @@ According to the above business need, an endpoint (POST Api) has been developed 
 - Show profile preference - show or not show (true/false)
 - Show language preference - show or not show (true/false)
 
-Data is saved against a unique user ID and one set of preferences (one POST to endpoint) can be saved per user, with duplicate calls rejected.
+Additional: user authorisation (sign up and sign in) end points.
+
+Data is saved against a unique user ID (per user registration above) and only one set of preferences (one POST to endpoint) can be saved per user, with duplicate calls rejected (a PUT request would need to be implemented to handle preference changes)
+
+Preferences endpoint is protected with user token - the API call must contain a valid token in header in order for call to be successful.
 
 This endpoint and documentation for API can be found here: https://documenter.getpostman.com/view/26092520/2s93z9aMMM
 
+The base url of the deployed endpoint is: https://user-endpoint.onrender.com
+
 Inputs are validated, accepted data types model can be seen in file Prisma>Schema.Prisma.
+```
 
-# Database
+## Database
 
+```bash
 Data is stored using an ORM (Postgres using Prisma). A SQL database is used in order to be able to relate user data with their preferences data.
 
 The following diagram demonstrates the data tables used in this project and the relationship between each:
+```
 
 <img src="src/assets/relation-diagram.png" alt="relational diagram for sql database" style="display: block; margin: 0 auto"/>
 
-• [optional] add authentication to the endpoint X
-• Must be deployed to GCP (either cloudRun or CloudFunctions)
-• Must be unit tested X
-• Must be API/Component test (preferably using gherkin)
+## Testing
 
-
-
-
-Project Overview: An overview of the project, its purpose, and its main features. This section provides a high-level understanding of the project's goals and functionality.
-
-Project Structure: A detailed explanation of the project's directory structure, including the purpose of each directory and file. It helps developers understand how the codebase is organized and where to find specific functionality.
-
-Dependencies and Packages: A list of all the dependencies and packages used in the project, along with their versions. This information helps developers ensure they have the required dependencies and understand the purpose of each package.
-
-Configuration: Details about the project's configuration options, such as environment variables, API keys, and other settings. This section explains how to customize the project's behavior and integrate external services.
-
-Components and Modules: Documentation on the various components, modules, and libraries used in the project, along with their purpose, usage guidelines, and examples. This helps developers understand how to leverage existing components and build new ones.
-
-
-
-XXXXtesting
-XXXXX update api in future or get api in future
+```bash
+Jest was used to unit test the preferences endpoint. Cucumber and Pactum were used, using gherking, to provide initial API testing (testing for additional scenarios to be implemented)
 ```
